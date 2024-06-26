@@ -1,0 +1,13 @@
+class MySoftmaxActivation(nn.Module):
+    def __init__(self):
+        super().__init__()
+         
+    def forward(self, x):
+        x_exp = torch.exp(x)
+        return x_exp/torch.sum(x_exp)
+
+
+softmax = MySoftmaxActivation()
+data = torch.Tensor([1, 2, 3])
+output = softmax(data)
+print(output)

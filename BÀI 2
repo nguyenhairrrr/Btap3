@@ -1,0 +1,74 @@
+from abc import ABC, abstractmethod
+class Person(ABC):
+    def __init__(self, name, yob):
+        self._name = name
+        self._yob = yob
+    @abstractmethod
+    def describe(self):
+        pass
+class Student(Person):
+    def __init__(self, name, yob, grade):
+        super().__init__(name, yob)
+        self.__grade = grade
+    def describe(self):
+        print(f'Student - Name: {self._name} - Yob: {self._yob} - Grade: {self.__grade}')
+class Teacher(Person):
+    def __init__(self, name, yob, subject):
+        super().__init__(name, yob)
+        self.__subject = subject
+    def describe(self):
+        print(f'Teacher - Name: {self._name} - Yob: {self._yob} - Subject: {self.__subject}')
+class Doctor(Person):
+    def __init__(self, name, yob, specialist):
+        super().__init__(name, yob)
+        self.__specialist = specialist
+    def describe(self):
+        print(f'Doctor - Name: {self._name} - Yob: {self._yob} - Specialist: {self.__specialist}')
+
+student1 = Student('studentA', 2010, '7')
+teacher1 = Teacher('teacherA', 1969, 'Math')
+teacher2 = Teacher('teacherB', 1995, 'History')
+doctor1 = Doctor('doctorA', 1945, 'Endocrinologists')
+doctor2 = Doctor('doctorB', 1975, 'Cardiologists')
+
+
+
+
+class Ward:
+    def __init__(self, name):
+        self.__name = name
+        self.__ward_list = list()
+    def add_person(self, person):
+        self.__ward_list.append(person)
+    def describe(self):
+        print(f'Ward name: {self.__name}')
+        for p in self.__ward_list:
+            p.describe()
+    def count_doctor(self):
+        result = 0
+        for p in self.__ward_list:
+            if isinstance(p, Doctor) == True:
+                result += 1
+        return result
+    def sort_age(self):
+        return self.__ward_list.sort(key = lambda x: x._yob, reverse = True)
+    def compute_average(self):
+        result = 0
+        number = 0
+        for p in self.__ward_list:
+            if isinstance(p , Teacher) == True:
+                result += p._yob
+                number += 1
+        result = result/number
+        return result
+        
+                
+ward1 = Ward('Ward1')
+ward1.add_person(student1)
+ward1.add_person(teacher1)
+ward1.add_person(teacher2)
+ward1.add_person(doctor1)
+ward1.add_person(doctor2)
+ward1.describe()
+ward1.count_doctor()
+ward1.compute_average()
